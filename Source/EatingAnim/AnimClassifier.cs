@@ -158,7 +158,7 @@ namespace EatingAnim
         {
             try
             {
-                if (r.IsSurgery) return AnimKind.Tend;
+                if (r.IsSurgery) return AnimKind.None; // surgery stays vanilla
                 if ((r.specialProducts != null && r.specialProducts.Contains(SpecialProductType.Butchery)) || EffectIs(r, "Butcher"))
                     return AnimKind.Butcher;
                 if (r.workSkill == SkillDefOf.Cooking || EffectIs(r, "Cook")) return AnimKind.Cook;
@@ -183,7 +183,7 @@ namespace EatingAnim
             if (s == SkillDefOf.Crafting) return AnimKind.Hammer;
             if (s == SkillDefOf.Artistic) return AnimKind.Chisel;
             if (s == SkillDefOf.Intellectual) return AnimKind.Write;
-            if (s == SkillDefOf.Medicine) return AnimKind.Tend;
+            if (s == SkillDefOf.Medicine) return AnimKind.None; // tending stays vanilla
             if (s == SkillDefOf.Animals) return AnimKind.Tend;
             // Shooting, Melee, Social: never override combat or conversations.
             return AnimKind.None;

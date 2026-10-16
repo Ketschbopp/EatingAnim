@@ -8,7 +8,7 @@ Quick, render-only animations for pawns. Requires [Harmony](https://steamcommuni
 | Cooking | Frying pan (meals) or pot (everything else). The bill's *real ingredients* are tossed in and cook down while the *real product* (e.g. a lavish meal) forms as work progresses. Stirring, pan tosses, steam. |
 | Butchering | Cleaver chops; chunks of the carcass's *own meat* fly on impact. |
 | Manufacturing / crafting | Hammering (sparks at smithies/smelters), sewing, chisel + mallet for sculptures, mortar & pestle for drugs/medicine — the *real product* takes shape on the bench. |
-| Work | Construction (hammer + dust), deconstruction (saw), mining (pickaxe + dust), sowing (trowel), harvesting (sickle), cleaning (broom), research (quill on paper), tending (the *real medicine*). Modded jobs are picked up through the skill their work toil uses. |
+| Work | Construction (hammer + dust), deconstruction (saw), mining (pickaxe + dust), sowing (trowel), harvesting (sickle), cleaning (broom), research (quill on paper). Tending and surgery are left vanilla. Modded jobs are picked up through the skill their work toil uses. |
 | Games | Board games: pieces moved across the board. Poker: card fan + dealing. Dexterity games: wind-up and throw (horseshoe in hand for horseshoes). |
 | Reading | Pages flip over the *real book / newspaper / document* being read — including modded ones that use the Reading joy kind. |
 | Apparel / equipment | The *real garment* comes down over the pawn while they wiggle into it (and back up when removing). Equipping does a hop and a twirl of the *real weapon*. |
