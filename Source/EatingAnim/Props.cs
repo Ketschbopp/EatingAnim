@@ -241,7 +241,8 @@ namespace EatingAnim
         {
             var product = s.job?.bill?.recipe?.ProducedThingDef;
             bool pan = product?.ingestible != null && product.ingestible.IsMeal;
-            float progress = s.progress >= 0f ? s.progress : Curves.Cycle(t, 900f);
+            float progress = BillProgress.Of(s);
+            if (progress < 0f) progress = Curves.Cycle(t, 900f);
 
             // Pan tosses now and then; the pot just bubbles.
             float toss = pan ? Curves.Hump(Curves.Cycle(t, 95f), 0.0f, 0.22f) : 0f;
@@ -278,7 +279,8 @@ namespace EatingAnim
         {
             Vector3 bowl = f.At(0.4f, -0.04f);
             Draw(Mortar, bowl, 0f, 0.45f);
-            float progress = s.progress >= 0f ? s.progress : 0.3f;
+            float progress = BillProgress.Of(s);
+            if (progress < 0f) progress = 0.3f;
             var mat = MatOf(Ingredient(s, 0));
             Draw(mat, bowl + new Vector3(0f, Step * 2, 0.06f), 0f, 0.18f * (1f - 0.7f * progress));
             float grind = Curves.Cycle(t, 26f) * Curves.TwoPi;
@@ -342,7 +344,8 @@ namespace EatingAnim
         private static void Product(Frame f, in AnimState s, float baseScale, float reach = 0.42f)
         {
             var product = s.job?.bill?.recipe?.ProducedThingDef;
-            float progress = s.progress >= 0f ? s.progress : 0.6f;
+            float progress = BillProgress.Of(s);
+            if (progress < 0f) progress = 0.6f;
             Draw(MatOf(product), f.At(reach, -0.06f, 0f, Step), 0f, baseScale * (0.45f + 0.55f * Curves.Smooth(progress)));
         }
 

@@ -124,8 +124,7 @@ namespace EatingAnim
                         return false;
                     var rk = AnimClassifier.recipeKinds;
                     s.kind = recipe.index < rk.Length ? rk[recipe.index] : AnimKind.Hammer;
-                    if (driver is JobDriver_DoBill bill && recipe.workAmount > 0f)
-                        s.progress = Mathf.Clamp01(1f - bill.workLeft / recipe.workAmount);
+                    // Bill progress is resolved on the main thread by BillProgress.Of (props only).
                     break;
 
                 case JobMode.Read:
