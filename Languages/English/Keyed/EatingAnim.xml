@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <EA_SettingsCategory>EatingAnim - Pawn Animations</EA_SettingsCategory>
+
+  <EA_Enabled>Enable all animations</EA_Enabled>
+  <EA_Enabled_Desc>Master switch. When off the mod does nothing beyond a single check per drawn pawn.</EA_Enabled_Desc>
+  <EA_Categories>Animation categories:</EA_Categories>
+
+  <EA_Eating>Eating</EA_Eating>
+  <EA_Eating_Desc>Spoon or fork bites carrying the real food when eating at a table; hunched hand-to-mouth eating of the real food item when eating without one.</EA_Eating_Desc>
+  <EA_Cooking>Cooking</EA_Cooking>
+  <EA_Cooking_Desc>Stirring a frying pan (meals) or pot, tossing the bill's real ingredients in while the real product forms as work progresses. Steam included.</EA_Cooking_Desc>
+  <EA_Butchering>Butchering</EA_Butchering>
+  <EA_Butchering_Desc>Cleaver chops; chunks of the carcass's own meat fly off on impact.</EA_Butchering_Desc>
+  <EA_Crafting>Manufacturing and crafting</EA_Crafting>
+  <EA_Crafting_Desc>Hammering (with sparks at smithies), sewing, chiselling sculptures and grinding drugs, with the real product taking shape on the bench.</EA_Crafting_Desc>
+  <EA_Work>Work</EA_Work>
+  <EA_Work_Desc>Construction, deconstruction (sawing), mining, sowing and harvesting, cleaning, research and tending (with the real medicine). Also covers modded jobs through their skill.</EA_Work_Desc>
+  <EA_Games>Games</EA_Games>
+  <EA_Games_Desc>Moving board-game pieces, holding and dealing cards, winding up throws.</EA_Games_Desc>
+  <EA_Reading>Reading</EA_Reading>
+  <EA_Reading_Desc>Pages turning over the real book, newspaper or document being read, including ones from other mods.</EA_Reading_Desc>
+  <EA_Apparel>Wearing and removing apparel</EA_Apparel>
+  <EA_Apparel_Desc>The pawn wiggles into the real garment as it comes down over them, or out of it as it comes off.</EA_Apparel_Desc>
+  <EA_Equip>Equipping</EA_Equip>
+  <EA_Equip_Desc>A quick hop and twirl of the real weapon after equipping it.</EA_Equip_Desc>
+
+  <EA_Animals>Animate animals eating</EA_Animals>
+  <EA_Animals_Desc>Head-down grazing bob for non-humanlike pawns while they eat.</EA_Animals_Desc>
+  <EA_Props>Show held items and tools</EA_Props>
+  <EA_Props_Desc>Draw utensils, tools, ingredients, products, pages and effects. Turn off to keep only body motion.</EA_Props_Desc>
+  <EA_HideZoomed>Hide held items when zoomed far out</EA_HideZoomed>
+  <EA_HideZoomed_Desc>Skips drawing props at the zoom level where the game itself switches pawns to cached low-detail rendering.</EA_HideZoomed_Desc>
+
+  <EA_Intensity>Motion intensity: {0}</EA_Intensity>
+  <EA_Intensity_Desc>Scales how far pawns lean, bob and nod.</EA_Intensity_Desc>
+  <EA_Speed>Animation speed: {0}</EA_Speed>
+  <EA_Speed_Desc>Scales how fast animations cycle.</EA_Speed_Desc>
+  <EA_Reset>Reset to defaults</EA_Reset>
+</LanguageData>
