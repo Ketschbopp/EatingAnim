@@ -13,7 +13,7 @@ namespace EatingAnim
         EatGround,
         EatAnimal,
         Cook,
-        Mix,
+        Chem,
         Butcher,
         Hammer,
         Sew,
@@ -69,7 +69,7 @@ namespace EatingAnim
             categoryOf[(int)AnimKind.EatGround] = AnimCategory.Eating;
             categoryOf[(int)AnimKind.EatAnimal] = AnimCategory.Eating;
             categoryOf[(int)AnimKind.Cook] = AnimCategory.Cooking;
-            categoryOf[(int)AnimKind.Mix] = AnimCategory.Crafting;
+            categoryOf[(int)AnimKind.Chem] = AnimCategory.Crafting;
             categoryOf[(int)AnimKind.Butcher] = AnimCategory.Butchering;
             categoryOf[(int)AnimKind.Hammer] = AnimCategory.Crafting;
             categoryOf[(int)AnimKind.Sew] = AnimCategory.Crafting;
@@ -164,7 +164,7 @@ namespace EatingAnim
                 if (r.workSkill == SkillDefOf.Cooking || EffectIs(r, "Cook")) return AnimKind.Cook;
                 if (EffectIs(r, "Tailor")) return AnimKind.Sew;
                 if (EffectIs(r, "Sculpt") || r.workSkill == SkillDefOf.Artistic) return AnimKind.Chisel;
-                if (EffectIs(r, "Drug") || r.workSkill == SkillDefOf.Medicine) return AnimKind.Mix;
+                if (EffectIs(r, "Drug") || r.workSkill == SkillDefOf.Medicine) return AnimKind.Chem; // drug lab chemistry
                 if (r.workSkill == SkillDefOf.Intellectual) return AnimKind.Write;
             }
             catch (Exception e)

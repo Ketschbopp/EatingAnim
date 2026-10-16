@@ -177,20 +177,6 @@ def cleaver():
     save(img, "Cleaver")
 
 
-def mortar():
-    img, d = new()
-    shape(img, both(poly((14, 50), (114, 50), (96, 112), (32, 112)), rect(36, 104, 92, 120, 4)), STONE, inset=5)
-    shape(img, ell(12, 36, 116, 64), STONE, inset=2)
-    shape(img, ell(22, 40, 106, 60), ((92, 120, 70, 255), (66, 92, 48, 255), (130, 160, 96, 255)), light=(1, 1), inset=2)
-    save(img, "Mortar")
-
-
-def pestle():
-    img, d = new()
-    shape(img, both(rect(56, 30, 72, 112, 8), ell(50, 4, 78, 40)), STONE, inset=3)
-    save(img, "Pestle")
-
-
 # ----------------------------------------------------------------- crafting / work
 
 def hammer():
@@ -311,6 +297,107 @@ def bandage():
     save(img, "Bandage")
 
 
+
+# ----------------------------------------------------------------- chemistry (drug lab)
+# Glass is drawn semi-transparent and rendered with the Transparent shader. Liquids are white
+# masks that the code tints at runtime, so their colour can shift as the batch progresses.
+
+GLASS = (205, 238, 252, 70)
+GLASS_OL = (40, 60, 70, 255)
+GLASS_HI = (255, 255, 255, 200)
+
+
+def _glass(img, draw_fn):
+    W = N * S
+    mask = Image.new("L", (W, W), 0)
+    draw_fn(ImageDraw.Draw(mask), 255)
+    outline = mask.filter(ImageFilter.MaxFilter(int(2.5 * S) * 2 + 1))
+    ring = Image.composite(Image.new("L", (W, W), 255), Image.new("L", (W, W), 0), outline)
+    ring.paste(0, (0, 0), mask)
+    img.paste(Image.new("RGBA", (W, W), GLASS_OL), (0, 0), ring)
+    img.paste(Image.new("RGBA", (W, W), GLASS), (0, 0), mask)
+
+
+def _liquid(draw_fn, name, shade=True):
+    img, d = new()
+    W = N * S
+    mask = Image.new("L", (W, W), 0)
+    draw_fn(ImageDraw.Draw(mask), 255)
+    img.paste(Image.new("RGBA", (W, W), (255, 255, 255, 230)), (0, 0), mask)
+    if shade:
+        # darker band at the bottom, bright meniscus on top, so a flat tint still reads as liquid
+        bot = Image.new("L", (W, W), 0)
+        ImageDraw.Draw(bot).rectangle((0, 0, W, W), fill=255)
+        grad = Image.linear_gradient("L").resize((W, W))
+        shadow = Image.composite(Image.new("RGBA", (W, W), (150, 150, 150, 230)), img, Image.eval(grad, lambda v: int(v * 0.6)))
+        img = Image.composite(shadow, img, mask)
+    save(img, name)
+
+
+BEAKER_BODY = both(rect(30, 30, 98, 116, 8), rect(24, 24, 104, 34, 3))
+BEAKER_LIQ = rect(34, 64, 94, 112, 6)
+
+
+def beaker():
+    img, d = new()
+    _glass(img, BEAKER_BODY)
+    d.line(sc([(40, 40), (40, 104)]), fill=GLASS_HI, width=4 * S)
+    for y in (52, 70, 88):
+        d.line(sc([(78, y), (92, y)]), fill=GLASS_OL, width=2 * S)
+    save(img, "Beaker")
+    _liquid(BEAKER_LIQ, "BeakerLiquid")
+
+
+FLASK_BODY = both(ell(28, 50, 100, 122), rect(54, 10, 74, 62, 4), rect(48, 6, 80, 16, 4))
+FLASK_LIQ = lambda dr, f: (dr.ellipse((33 * S, 55 * S, 95 * S, 117 * S), fill=f), dr.rectangle((0, 0, 128 * S, 78 * S), fill=0))
+
+
+def flask():
+    img, d = new()
+    _glass(img, FLASK_BODY)
+    d.arc(sc([(36, 58), (92, 114)]), 200, 250, fill=GLASS_HI, width=4 * S)
+    d.line(sc([(59, 16), (59, 52)]), fill=GLASS_HI, width=3 * S)
+    save(img, "Flask")
+    _liquid(FLASK_LIQ, "FlaskLiquid")
+
+
+def erlenmeyer():
+    img, d = new()
+    body = both(poly((54, 30), (74, 30), (110, 118), (18, 118)), rect(52, 6, 76, 34, 3))
+    _glass(img, body)
+    save(img, "Erlenmeyer")
+    _liquid(poly((44, 74), (84, 74), (104, 114), (24, 114)), "ErlenmeyerLiquid")
+    d.line(sc([(57, 12), (57, 30), (34, 104)]), fill=GLASS_HI, width=3 * S)
+    save(img, "Erlenmeyer")
+
+
+def tube_rack():
+    img, d = new()
+    cols = [(120, 210, 90, 255), (230, 120, 60, 255), (150, 110, 230, 255), (90, 190, 230, 255)]
+    for i, x in enumerate((22, 46, 70, 94)):
+        _glass(img, rect(x, 14, x + 14, 92, 7))
+        d.rounded_rectangle(sc([(x + 2, 52), (x + 12, 90)]), radius=5 * S, fill=cols[i])
+        d.line(sc([(x + 4, 20), (x + 4, 48)]), fill=GLASS_HI, width=2 * S)
+    shape(img, rect(10, 70, 118, 84, 3), WOOD, inset=2)
+    shape(img, both(rect(14, 84, 24, 118, 2), rect(104, 84, 114, 118, 2), rect(10, 106, 118, 116, 2)), WOOD, inset=2)
+    save(img, "TubeRack")
+
+
+def drop():
+    img, d = new()
+    d.ellipse(sc([(44, 54), (84, 94)]), fill=(255, 255, 255, 230))
+    d.polygon(sc([(48, 66), (80, 66), (64, 30)]), fill=(255, 255, 255, 230))
+    d.ellipse(sc([(52, 62), (62, 72)]), fill=(255, 255, 255, 255))
+    save(img, "Drop")
+
+
+def bubble():
+    img, d = new()
+    d.ellipse(sc([(30, 30), (98, 98)]), outline=(255, 255, 255, 220), width=7 * S)
+    d.ellipse(sc([(44, 42), (60, 58)]), fill=(255, 255, 255, 240))
+    save(img, "Bubble")
+
+
 # ----------------------------------------------------------------- games
 
 def card():
@@ -387,8 +474,8 @@ def preview():
         d.line([(i, 0), (i, H)], fill=(50, 57, 50, 255))
     for j in range(0, H, 32):
         d.line([(0, j), (W, j)], fill=(50, 57, 50, 255))
-    names = ["FryingPan", "Pot", "Cleaver", "Knife", "Hammer", "Mortar",
-             "Quill", "Pickaxe", "Sickle", "Broom", "CardFan", "Saw"]
+    names = ["FryingPan", "Pot", "Cleaver", "Knife", "Hammer", "Erlenmeyer",
+             "Quill", "Pickaxe", "Flask", "TubeRack", "CardFan", "Saw"]
     for i, n in enumerate(names):
         t = Image.open(os.path.join(OUT, n + ".png")).resize((96, 96), Image.LANCZOS)
         img.alpha_composite(t, (20 + (i % 6) * 102, 60 + (i // 6) * 140))
@@ -398,9 +485,10 @@ def preview():
 
 
 if __name__ == "__main__":
-    for f in (frying_pan, pot, spatula, wooden_spoon, spoon, fork, knife, cleaver, mortar, pestle,
+    for f in (frying_pan, pot, spatula, wooden_spoon, spoon, fork, knife, cleaver,
               hammer, mallet, chisel, needle, saw, pickaxe, trowel, sickle, broom, quill, paper, page,
-              bandage, card, card_fan, game_piece, horseshoe, spark):
+              bandage, card, card_fan, game_piece, horseshoe, spark,
+              beaker, flask, erlenmeyer, tube_rack, drop, bubble):
         f()
     puff("Steam", (240, 240, 240, 170))
     puff("Dust", (170, 150, 120, 170))
