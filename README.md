@@ -18,6 +18,9 @@ All animations work for every facing (north, east, south, west): lean, nods, too
 ## Settings
 Every category can be turned off, plus: master switch, animals on/off, props on/off, hide props when zoomed out, intensity and speed sliders.
 
+## Other options
+- **Disable shield belts** (off by default): worn shield belts block nothing, show no bubble, no longer prevent the wearer from shooting, and aren't favoured when pawns choose apparel. Shields built into creatures (e.g. mechanoids) are unaffected.
+
 ## Performance
 - **No tick work.** Nothing is added to the simulation, so TPS is unaffected. (The only non-render hook records the tick a weapon was equipped.)
 - **Render path only, on-screen pawns only.** Patches are postfixes on vanilla pawn drawing; off-screen pawns are never touched.

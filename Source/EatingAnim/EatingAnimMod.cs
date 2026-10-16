@@ -47,6 +47,11 @@ namespace EatingAnim
             s.speed = list.SliderLabeled("EA_Speed".Translate(s.speed.ToStringPercent()), s.speed, 0.5f, 1.75f, 0.5f, "EA_Speed_Desc".Translate());
             list.Gap();
 
+            list.GapLine();
+            list.Label("EA_Other".Translate());
+            list.CheckboxLabeled("EA_DisableShieldBelts".Translate(), ref s.disableShieldBelts, "EA_DisableShieldBelts_Desc".Translate());
+            list.Gap();
+
             if (list.ButtonText("EA_Reset".Translate()))
                 s.ResetToDefaults();
 

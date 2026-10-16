@@ -28,6 +28,8 @@
 - Games and reading: moving board-game pieces, dealing cards, throwing games, flipping book pages.
 - Apparel and equipment: wiggling into (and out of) clothes, a quick flourish when equipping a weapon.
 
+Also includes an optional, off-by-default setting to disable shield belts (no protection, no bubble, no shooting restriction).
+
 Every animation category can be switched off in the mod settings, along with the hand-held props, and there is a global intensity and speed slider.
 
 Performance: nothing runs on the game tick. All work happens while drawing pawns that are already on screen, is computed from the pawn's current job without any per-pawn state, and allocates no memory per frame. Off-screen pawns cost nothing, so TPS is unaffected.

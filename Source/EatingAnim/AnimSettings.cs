@@ -33,6 +33,7 @@ namespace EatingAnim
         public bool animals = true;
         public bool props = true;
         public bool hidePropsZoomedOut = true;
+        public bool disableShieldBelts = false;
         public float intensity = 1f;
         public float speed = 1f;
 
@@ -58,6 +59,7 @@ namespace EatingAnim
         {
             enabled = eating = cooking = butchering = crafting = work = games = reading = apparel = equip = true;
             animals = props = hidePropsZoomedOut = true;
+            disableShieldBelts = false;
             intensity = 1f;
             speed = 1f;
             Refresh();
@@ -79,6 +81,7 @@ namespace EatingAnim
             Scribe_Values.Look(ref animals, "animals", true);
             Scribe_Values.Look(ref props, "props", true);
             Scribe_Values.Look(ref hidePropsZoomedOut, "hidePropsZoomedOut", true);
+            Scribe_Values.Look(ref disableShieldBelts, "disableShieldBelts", false);
             Scribe_Values.Look(ref intensity, "intensity", 1f);
             Scribe_Values.Look(ref speed, "speed", 1f);
             Refresh();
