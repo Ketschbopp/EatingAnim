@@ -37,4 +37,8 @@
   <EA_Speed>Animation speed: {0}</EA_Speed>
   <EA_Speed_Desc>Scales how fast animations cycle.</EA_Speed_Desc>
   <EA_Reset>Reset to defaults</EA_Reset>
+
+  <EA_Other>Other:</EA_Other>
+  <EA_DisableShieldBelts>Disable shield belts</EA_DisableShieldBelts>
+  <EA_DisableShieldBelts_Desc>Worn shield belts stop working: they block nothing, show no bubble, no longer prevent the wearer from shooting, and pawns stop preferring them when choosing apparel. Belts can still be worn, traded and crafted. Shields built into creatures (such as mechanoids) are unaffected. Takes effect immediately.</EA_DisableShieldBelts_Desc>
 </LanguageData>
