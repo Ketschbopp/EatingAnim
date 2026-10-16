@@ -32,6 +32,9 @@ namespace EatingAnim
         private static readonly AccessTools.FieldRef<JobDriver_RemoveApparel, int> unwearDuration =
             AccessTools.FieldRefAccess<JobDriver_RemoveApparel, int>("duration");
 
+        // A large multiple of every cycle length would be ideal; any jump here happens once per ~55 in-game days.
+        private const int ClockWrap = 3_326_400;
+
         private static readonly TargetIndex tableCellInd = ReadStatic(typeof(JobDriver_Ingest), "TableCellInd", TargetIndex.B);
 
         private static TargetIndex ReadStatic(Type type, string name, TargetIndex fallback)
@@ -58,18 +61,15 @@ namespace EatingAnim
             var settings = EatingAnimMod.Settings;
             if (!settings.enabled || !AnimClassifier.Ready || pawn == null || !pawn.Spawned || pawn.Dead || pawn.Downed)
                 return false;
-            if (pawn.GetPosture() != PawnPosture.Standing)
-                return false;
-            var renderer = pawn.Drawer?.renderer;
-            if (renderer == null || renderer.HasAnimation)
-                return false;
+            // Cheapest rejections first: most pawns on screen are walking or idle.
             if (pawn.pather != null && pawn.pather.Moving)
                 return false;
 
             bool humanlike = pawn.RaceProps.Humanlike;
             int now = GenTicks.TicksGame;
             s.rot = pawn.Rotation;
-            s.t = (now + (pawn.thingIDNumber * 97) % 997) * settings.speed;
+            // Wrapped in integer space so the float clock never loses precision on long games.
+            s.t = ((now + (pawn.thingIDNumber * 97) % 997) % ClockWrap) * settings.speed;
             s.progress = -1f;
 
             if (humanlike && EquipFlourish.TryGet(pawn, now, out var eq, out float eqProgress))
@@ -77,7 +77,7 @@ namespace EatingAnim
                 s.kind = AnimKind.Equip;
                 s.subject = eq;
                 s.progress = eqProgress;
-                return settings.IsOn(AnimCategory.Equip);
+                return settings.IsOn(AnimCategory.Equip) && CanAnimate(pawn);
             }
 
             var driver = pawn.jobs?.curDriver;
@@ -178,7 +178,16 @@ namespace EatingAnim
                     break;
             }
 
-            return s.kind != AnimKind.None && settings.IsOn(AnimClassifier.categoryOf[(int)s.kind]);
+            return s.kind != AnimKind.None && settings.IsOn(AnimClassifier.categoryOf[(int)s.kind]) && CanAnimate(pawn);
+        }
+
+        /// <summary>Checks left until a pawn is known to have an animatable job.</summary>
+        private static bool CanAnimate(Pawn pawn)
+        {
+            if (pawn.GetPosture() != PawnPosture.Standing)
+                return false;
+            var renderer = pawn.Drawer?.renderer;
+            return renderer != null && !renderer.HasAnimation;
         }
     }
 
