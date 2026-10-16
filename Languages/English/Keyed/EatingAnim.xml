@@ -13,9 +13,9 @@
   <EA_Butchering>Butchering</EA_Butchering>
   <EA_Butchering_Desc>Cleaver chops; chunks of the carcass's own meat fly off on impact.</EA_Butchering_Desc>
   <EA_Crafting>Manufacturing and crafting</EA_Crafting>
-  <EA_Crafting_Desc>Hammering (with sparks at smithies), sewing, chiselling sculptures and grinding drugs, with the real product taking shape on the bench.</EA_Crafting_Desc>
+  <EA_Crafting_Desc>Hammering (with sparks at smithies), sewing, chiselling sculptures and drug-lab chemistry (pouring flasks into a fizzing, colour-changing beaker), with the real product taking shape on the bench.</EA_Crafting_Desc>
   <EA_Work>Work</EA_Work>
-  <EA_Work_Desc>Construction, deconstruction (sawing), mining, sowing and harvesting, cleaning, research and tending (with the real medicine). Also covers modded jobs through their skill.</EA_Work_Desc>
+  <EA_Work_Desc>Construction, deconstruction (sawing), mining, sowing and harvesting, cleaning and research. Tending and surgery stay vanilla. Also covers modded jobs through their skill.</EA_Work_Desc>
   <EA_Games>Games</EA_Games>
   <EA_Games_Desc>Moving board-game pieces, holding and dealing cards, winding up throws.</EA_Games_Desc>
   <EA_Reading>Reading</EA_Reading>

@@ -13,7 +13,7 @@ namespace EatingAnim
         EatGround,
         EatAnimal,
         Cook,
-        Mix,
+        Chem,
         Butcher,
         Hammer,
         Sew,
@@ -69,7 +69,7 @@ namespace EatingAnim
             categoryOf[(int)AnimKind.EatGround] = AnimCategory.Eating;
             categoryOf[(int)AnimKind.EatAnimal] = AnimCategory.Eating;
             categoryOf[(int)AnimKind.Cook] = AnimCategory.Cooking;
-            categoryOf[(int)AnimKind.Mix] = AnimCategory.Crafting;
+            categoryOf[(int)AnimKind.Chem] = AnimCategory.Crafting;
             categoryOf[(int)AnimKind.Butcher] = AnimCategory.Butchering;
             categoryOf[(int)AnimKind.Hammer] = AnimCategory.Crafting;
             categoryOf[(int)AnimKind.Sew] = AnimCategory.Crafting;
@@ -158,13 +158,13 @@ namespace EatingAnim
         {
             try
             {
-                if (r.IsSurgery) return AnimKind.Tend;
+                if (r.IsSurgery) return AnimKind.None; // surgery stays vanilla
                 if ((r.specialProducts != null && r.specialProducts.Contains(SpecialProductType.Butchery)) || EffectIs(r, "Butcher"))
                     return AnimKind.Butcher;
                 if (r.workSkill == SkillDefOf.Cooking || EffectIs(r, "Cook")) return AnimKind.Cook;
                 if (EffectIs(r, "Tailor")) return AnimKind.Sew;
                 if (EffectIs(r, "Sculpt") || r.workSkill == SkillDefOf.Artistic) return AnimKind.Chisel;
-                if (EffectIs(r, "Drug") || r.workSkill == SkillDefOf.Medicine) return AnimKind.Mix;
+                if (EffectIs(r, "Drug") || r.workSkill == SkillDefOf.Medicine) return AnimKind.Chem; // drug lab chemistry
                 if (r.workSkill == SkillDefOf.Intellectual) return AnimKind.Write;
             }
             catch (Exception e)
@@ -183,7 +183,7 @@ namespace EatingAnim
             if (s == SkillDefOf.Crafting) return AnimKind.Hammer;
             if (s == SkillDefOf.Artistic) return AnimKind.Chisel;
             if (s == SkillDefOf.Intellectual) return AnimKind.Write;
-            if (s == SkillDefOf.Medicine) return AnimKind.Tend;
+            if (s == SkillDefOf.Medicine) return AnimKind.None; // tending stays vanilla
             if (s == SkillDefOf.Animals) return AnimKind.Tend;
             // Shooting, Melee, Social: never override combat or conversations.
             return AnimKind.None;

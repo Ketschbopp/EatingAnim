@@ -69,6 +69,9 @@ namespace EatingAnim
 
     public static class PoseUtility
     {
+        /// <summary>Length of one pour-and-swirl cycle at the drug lab, shared with the props.</summary>
+        public const float ChemCycle = 240f;
+
         public static AnimPose For(in AnimState s)
         {
             var pose = new AnimPose();
@@ -108,10 +111,20 @@ namespace EatingAnim
                     pose.bodyAngle = side * 4f * g;
                     break;
                 }
-                case AnimKind.Cook:
-                case AnimKind.Mix:
+                case AnimKind.Chem:
                 {
-                    float period = s.kind == AnimKind.Cook ? 120f : 70f;
+                    p = Curves.Cycle(t, ChemCycle);
+                    float pour = Curves.Hump(p, 0.16f, 0.58f);
+                    float swirl = Curves.Hump(p, 0.66f, 0.96f) * Mathf.Sin(t * 0.5f);
+                    pose.body = fwd * (0.018f + 0.016f * pour) + new Vector3(0.006f * swirl, 0f, 0f);
+                    pose.bodyAngle = side * 3f * pour + 1.5f * swirl;
+                    pose.head = down * (0.01f + 0.008f * pour);
+                    pose.headAngle = side * (4f + 5f * pour);
+                    break;
+                }
+                case AnimKind.Cook:
+                {
+                    float period = 120f;
                     float sway = Mathf.Sin(Curves.Cycle(t, period) * Curves.TwoPi);
                     float stir = Mathf.Sin(Curves.Cycle(t, 40f) * Curves.TwoPi);
                     pose.body = new Vector3(sway * 0.012f, 0f, 0f) + fwd * 0.015f;
